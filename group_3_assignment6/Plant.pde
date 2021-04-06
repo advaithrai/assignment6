@@ -3,7 +3,7 @@ class Plant {
   int x_pos, y_pos;
   boolean isAlive;
   
-  Plant(float x, float y, boolean isAlive) {
+  Plant(int x, int y, boolean isAlive) {
    
     this.x_pos = x;
     this.y_pos = y;
@@ -11,15 +11,25 @@ class Plant {
   }
   
   
-  void seed(boolean[][] matrix) {
+  void seed() {
     if (isAlive) {
     PImage plant = loadImage("Sprites/Plant.png");
     image(plant, x_pos, y_pos);
     
-    matrix[x_pos][y_pos] = true;
+
   
     }
   }
+  
+  
+  void living(boolean[][] matrix) {
+    if (isAlive) {
+      delay(3000);
+      this.grow(matrix);
+    }
+    
+  }
+  
   
   void grow(boolean[][] matrix) {
     int new_x;
@@ -28,22 +38,26 @@ class Plant {
     for (int i = -1; i < 2; i++) {
       for (int j = -1; j < 2; j++) {
         
-        
+        if (matrix[x_pos + i][y_pos + j] == false && !(i == 0 && j == 0 )) {
+          new_x = x_pos + i;
+          new_y = y_pos + j;
+          
+          Plant plant = new Plant(new_x, new_y, true);
+          plant.seed();
+        }
       }
     }
-    
-    Plant plant = new Plant(x_pos, y_pos, true);
-    plant.seed(matrix);
   
   }
   
+  void newSeed() {}
   
-  void reproduce(int[][] Matrix) {
-    int matrixWidth = Matrix[0].length;
-    int matrixHeight = Matrix.length;
+  void die(boolean[][] matrix) {
+    this.isAlive = false;
     
-    float new_x = x_pos + plantSize + 20;
-    float new_y = y_pos + plantSize + 20;
-    
+    matrix[x_pos][y_pos] = false;
+        
   }
+  
+  
 }

@@ -2,6 +2,7 @@ Plant plant;
 int cellCount = 50;
 
 boolean[][] cellMatrix = new boolean[cellCount][cellCount];
+Plant[] plants = new Plant[6];
 
 boolean isAlive = true;
 
@@ -11,7 +12,10 @@ void setup() {
   
   frameRate(20);
   
-  plant = new Plant(50,50,true);
+  for (int i = 0; i <= 5; i++) {
+      plant = new Plant(50,50,true);
+  }
+
   
   
 
