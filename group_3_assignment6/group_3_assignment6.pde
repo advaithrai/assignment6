@@ -1,23 +1,16 @@
-Plant plant;
+
 int cellCount = 50;
 
 boolean[][] cellMatrix = new boolean[cellCount][cellCount];
-Plant[] plants = new Plant[6];
 
-boolean isAlive = true;
 
 void setup() {
   
   size(500,500);
   
-  frameRate(20);
+  frameRate(5);
   
-  for (int i = 0; i <= 5; i++) {
-      plant = new Plant(50,50,true);
-  }
-
-  
-  
+  cellMatrix[5][5]= true;
 
 
 }
@@ -25,12 +18,22 @@ void setup() {
 void draw() {
  background(159,191,139);
  
-  plant.seed();
+  createPlants();
+  
+  
+ }
 
-}
-
-void mouseClicked() {
-  plant.isAlive = false;
-
+void createPlants() {
+    for (int row = 0; row < cellCount; row++) {
+    for (int col = 0; col < cellCount; col++) {
+      if (cellMatrix[row][col] == true) {
+          int x_pos = row * 10;
+          int y_pos = col * 10;
+          Plant plnt = new Plant(x_pos, y_pos);
+          plnt.seed();
+          
+      }
+    }
+  }
 
 }
