@@ -1,51 +1,79 @@
+Plant[] plants;
+Prey[] preys;
+Predator[] predators;
 
-int cellCount = 501;
 
-boolean[][] cellMatrix = new boolean[cellCount][cellCount];
-
-Plant[] plants = new Plant[5];
-Timer timer;
+int UNIT = 25;
 
 void setup() {
-  
-  size(500,500);  
-  //frameRate(30);
-  timer= new Timer(30);
-  
+  frameRate(6);
+  size(500,500);
+  preys = new Prey[8];
+  predators = new Predator[4];
+  plants = new Plant[15];
 
-   for (int i = 0; i < 5; i++) {
-    Plant plant = new Plant(50 + (i * 50),100);
-    plants[i] = plant;
+  
+  for (int i = 0; i < 8; i++) {
+    
+    int randX = int(random(width/UNIT)) * UNIT;
+    int randY = int(random(height/UNIT)) * UNIT;
+    
+    preys[i] = new Prey(randX, randY);
+  }
+  
+    for (int i = 0; i < 4; i++) {
+    
+    int randX = int(random(width/UNIT)) * UNIT;
+    int randY = int(random(height/UNIT)) * UNIT;
+    
+    predators[i] = new Predator(randX, randY);
   }
 
-
+  
+  for (int i = 0; i < 15; i++) {
+    
+    int randX = int(random(width/UNIT)) * UNIT;
+    int randY = int(random(height/UNIT)) * UNIT;
+    
+    plants[i] = new Plant(randX, randY, 0);
+  }
+  
 }
 
 void draw() {
- background(159,191,139);
- 
-  for (Plant plant : plants) {
-      plant.display(cellMatrix);
-      if (timer.go()) {
-        plant.reproduce(plants,cellMatrix);
-      }
-      
-  }
+  background(104,180,131);
   
-  
- }
-
-void createPlants() {
-    for (int row = 0; row < cellCount; row++) {
-    for (int col = 0; col < cellCount; col++) {
-      if (cellMatrix[row][col] == true) {
-          int x_pos = row * 10;
-          int y_pos = col * 10;
-          Plant plnt = new Plant(x_pos, y_pos);
-          plnt.display(cellMatrix);
-          
-      }
+  for (Prey prey : preys) {
+     for (Predator predator : predators) {
+      predator.eat(prey);
     }
-  }
+    
+    preys = prey.reproduce(preys);
+    prey.move();
+    prey.display();
+    
 
+  }
+  
+  for (Predator predator : predators) {
+    predators = predator.reproduce(predators);
+    predator.move();
+    predator.display();
+  }
+  
+  for (Plant plant : plants) {
+    
+     for (Prey prey : preys) {
+      prey.eat(plant);
+    }
+   
+    plants = plant.reproduce(plants);   
+
+   plant.display();
+  
+  }
+  
+  
+
+  
 }
