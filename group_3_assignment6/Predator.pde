@@ -1,7 +1,7 @@
 
 class Predator {
   
-  PImage predSprite = loadImage("Predator.png");
+  PImage predSprite = loadImage("Sprites/Predator.png");
   int predWidth = 25;
   int x, y;
   int eaten = 0;
@@ -51,8 +51,8 @@ class Predator {
   
   Predator[] reproduce(Predator[] predators){
     
-    if(this.eaten == 2){
-      print(predators);
+    if(this.eaten >= 2){
+    
       predators = (Predator[])append(predators, new Predator(this.x, this.y));
       this.eaten = 0;
       return predators;
