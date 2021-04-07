@@ -1,26 +1,29 @@
 class Plant {
   int x_pos, y_pos;
   boolean alive = true;
+  boolean left = true;
   
-  int Timer = 0;
-  int TimerValue = 3000;
+  int UNIT = 25;
+  
+  int time ;
+  int TimerValue = 6000;
   PImage plant = loadImage("Sprites/Plant.png");
   
-  Plant(int x, int y) {
+  Plant(int x, int y, int time) {
    
     this.x_pos = x;
     this.y_pos = y;
+    this.time = time;
  
   }
   
   
   
-  void display(boolean[][] matrix) {
+  void display() {
     if (this.alive) {
    
-    image(this.plant, x_pos, y_pos);    
+    image(this.plant, this.x_pos, this.y_pos);    
     
-    matrix[x_pos][y_pos] = true;
     }
   }
   
@@ -30,42 +33,32 @@ class Plant {
   }
   
   
-  Plant[] reproduce(Plant[] plants, boolean[][] matrix) {
+  Plant[] reproduce(Plant[] plants) {
+    if (alive && (millis() - this.time >= this.TimerValue)) {
+      this.time = millis();
+
     
-    int new_y = this.y_pos + 50;
-    int new_x = this.x_pos + 50;
+    int new_y = int(random(width/UNIT)) * UNIT;
+    int new_x = int(random(height/UNIT)) * UNIT;
     
-  //  if (Timer >= TimerValue) {    
-      if((new_y < 500) && !(matrix[this.x_pos][new_y])) {
-      
-        plants = (Plant[])append(plants, new Plant(this.x_pos, new_y));
-        matrix[this.x_pos][new_y] = true;
-        Timer = 0;
-    
+      if (left) {
+      plants = (Plant[])append(plants, new Plant(this.x_pos, new_y,this.time));
+      left = false;}
+      else if (!left) {
+      plants = (Plant[])append(plants, new Plant(new_x, this.y_pos,this.time));
+      left = true;}
+         
+           
         return plants;
       }
-    
-    else if ((new_x < 500) && !(matrix[new_x][this.y_pos])) {
-        plants = (Plant[])append(plants, new Plant(new_x, this.y_pos));
-        matrix[new_x][this.y_pos] = true;
-        Timer = 0;
-        
-    return plants;
-      }
-    
-    else {
-    Timer = 0;
-    return plants;
+   
+      else {
+
+      return plants;
       }
     
     }
     
-/*    else {
-      Timer += 1;
-      return plants;
-    }*/
-//  }
-  
 
   
 }
