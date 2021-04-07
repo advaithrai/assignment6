@@ -3,14 +3,14 @@ int cellCount = 501;
 
 boolean[][] cellMatrix = new boolean[cellCount][cellCount];
 
+Plant[] plants = new Plant[5];
 
 void setup() {
   
-  size(500,500);
+  size(500,500);  
+  frameRate(30);
   
-  frameRate(5);
   
-  cellMatrix[50][50]= true;
 
 
 }
@@ -29,7 +29,7 @@ void createPlants() {
           int x_pos = row * 10;
           int y_pos = col * 10;
           Plant plnt = new Plant(x_pos, y_pos);
-          plnt.seed();
+          plnt.display(cellMatrix);
           
       }
     }

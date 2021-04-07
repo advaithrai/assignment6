@@ -1,5 +1,4 @@
 class Plant {
-  int plantSize = 10;
   int x_pos, y_pos;
   boolean alive = true;
   
@@ -14,7 +13,8 @@ class Plant {
   }
   
   
-  void seed(boolean[][] matrix) {
+  
+  void display(boolean[][] matrix) {
     if (alive) {
     PImage plant = loadImage("Sprites/Plant.png");
     image(plant, x_pos, y_pos);    
@@ -28,28 +28,11 @@ class Plant {
     matrix[x_pos][y_pos] = false;
   }
   
-  void grow(boolean[][] matrix) {
-    int new_x;
-    int new_y;
-    
-    for (int i = -1; i < 2; i++) {
-      for (int j = -1; j < 2; j++) {
-        
-        if (matrix[x_pos + i][y_pos + j] == false && !(i == 0 && j == 0 )) {
-          new_x = x_pos + i;
-          new_y = y_pos + j;
-          
-          Plant plant = new Plant(new_x, new_y);
-          plant.seed(matrix);
-        }
-      }
-    }
-  
-  }
   
   Plant[] reproduce(Plant[] plants, boolean[][] matrix) {
     
     int new_y = this.y_pos + 50;
+    int new_x = this.x_pos + 50;
     
     if (Timer >= TimerValue) {    
       if((new_y < 500) && !(matrix[this.x_pos][new_y])) {
@@ -59,6 +42,14 @@ class Plant {
         Timer = 0;
     
     return plants;}
+    
+    else if ((new_x < 500) && !(matrix[new_x][this.y_pos])) {
+        plants = (Plant[])append(plants, new Plant(new_x, this.y_pos));
+        matrix[new_x][this.y_pos] = true;
+        Timer = 0;
+        
+    return plants;
+    }
     
     else {
     Timer = 0;
@@ -72,26 +63,6 @@ class Plant {
     }
   }
   
-  void growPlants(boolean[][]cellMatrix) {
-  for (int row = 0; row < cellCount; row++) {
-  for (int col = 0; col < cellCount; col++) {
-      if (cellMatrix[row][col] == true) {
-          
-          int x_pos = row ;
-          int y_pos = col + 1;
-          
-          if (y_pos < cellCount && !(cellMatrix[x_pos][y_pos])) { 
-          cellMatrix[x_pos][y_pos] = true;}
-          
-          
-          
-      }
-    }
-  }
-
-
-}
-
 
   
 }
