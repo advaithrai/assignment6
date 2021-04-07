@@ -14,17 +14,18 @@ class Plant {
   }
   
   
-  void seed() {
+  void seed(boolean[][] matrix) {
     if (alive) {
     PImage plant = loadImage("Sprites/Plant.png");
-    image(plant, x_pos, y_pos);
+    image(plant, x_pos, y_pos);    
     
-  
+    matrix[x_pos][y_pos] = true;
     }
   }
   
-  void kill() {
+  void kill(boolean[][] matrix) {
     this.alive = false;
+    matrix[x_pos][y_pos] = false;
   }
   
   void grow(boolean[][] matrix) {
@@ -39,20 +40,31 @@ class Plant {
           new_y = y_pos + j;
           
           Plant plant = new Plant(new_x, new_y);
-          plant.seed();
+          plant.seed(matrix);
         }
       }
     }
   
   }
   
-  Plant[] reproduce(Plant[] plants) {
+  Plant[] reproduce(Plant[] plants, boolean[][] matrix) {
     
-    if (Timer >= TimerValue) {
-    plants = (Plant[])append(plants, new Plant(this.x_pos, this.y_pos + 50));
-    Timer = 0;
+    int new_y = this.y_pos + 50;
+    
+    if (Timer >= TimerValue) {    
+      if((new_y < 500) && !(matrix[this.x_pos][new_y])) {
+      
+        plants = (Plant[])append(plants, new Plant(this.x_pos, new_y));
+        matrix[this.x_pos][new_y] = true;
+        Timer = 0;
     
     return plants;}
+    
+    else {
+    Timer = 0;
+    return plants;}
+    
+    }
     
     else {
       Timer += 1;

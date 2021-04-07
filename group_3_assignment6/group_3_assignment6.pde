@@ -1,5 +1,5 @@
 
-int cellCount = 50;
+int cellCount = 501;
 
 boolean[][] cellMatrix = new boolean[cellCount][cellCount];
 
@@ -10,7 +10,7 @@ void setup() {
   
   frameRate(5);
   
-  cellMatrix[5][5]= true;
+  cellMatrix[50][50]= true;
 
 
 }
@@ -18,7 +18,6 @@ void setup() {
 void draw() {
  background(159,191,139);
  
-  createPlants();
   
   
  }
