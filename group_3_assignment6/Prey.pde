@@ -5,6 +5,7 @@ class Prey {
   int preyWidth = 25;
   int x, y;
   boolean alive = true;
+  int food = 0;
   
   Prey(int _x, int _y) {
     x = _x;
@@ -36,5 +37,33 @@ class Prey {
     if (direction == 3) {
       y -= preyWidth;
     }
+  }
+  
+    void eat(Plant p) {
+    
+    if (p.alive) {
+      
+      if (p.x_pos == this.x && p.y_pos == this.y) {
+        p.alive = false;
+        this.food++;
+        println(food);
+      }
+      
+    }
+
+  }
+  
+  Prey[] reproduce(Prey[] preys) {
+    
+    if (this.food == 3) {
+      print(preys);
+      preys = (Prey[])append(preys, new Prey(this.x, this.y));
+      this.food = 0;
+      return preys;
+      
+    } else {
+      return preys;
+    }
+   
   }
 }

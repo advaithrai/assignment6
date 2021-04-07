@@ -4,6 +4,7 @@ class Plant {
   
   int Timer = 0;
   int TimerValue = 3000;
+  PImage plant = loadImage("Sprites/Plant.png");
   
   Plant(int x, int y) {
    
@@ -15,9 +16,9 @@ class Plant {
   
   
   void display(boolean[][] matrix) {
-    if (alive) {
-    PImage plant = loadImage("Sprites/Plant.png");
-    image(plant, x_pos, y_pos);    
+    if (this.alive) {
+   
+    image(this.plant, x_pos, y_pos);    
     
     matrix[x_pos][y_pos] = true;
     }
@@ -34,14 +35,15 @@ class Plant {
     int new_y = this.y_pos + 50;
     int new_x = this.x_pos + 50;
     
-    if (Timer >= TimerValue) {    
+  //  if (Timer >= TimerValue) {    
       if((new_y < 500) && !(matrix[this.x_pos][new_y])) {
       
         plants = (Plant[])append(plants, new Plant(this.x_pos, new_y));
         matrix[this.x_pos][new_y] = true;
         Timer = 0;
     
-    return plants;}
+        return plants;
+      }
     
     else if ((new_x < 500) && !(matrix[new_x][this.y_pos])) {
         plants = (Plant[])append(plants, new Plant(new_x, this.y_pos));
@@ -49,19 +51,20 @@ class Plant {
         Timer = 0;
         
     return plants;
-    }
+      }
     
     else {
     Timer = 0;
-    return plants;}
+    return plants;
+      }
     
     }
     
-    else {
+/*    else {
       Timer += 1;
       return plants;
-    }
-  }
+    }*/
+//  }
   
 
   

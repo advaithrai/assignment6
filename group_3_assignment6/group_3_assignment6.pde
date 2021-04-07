@@ -4,13 +4,19 @@ int cellCount = 501;
 boolean[][] cellMatrix = new boolean[cellCount][cellCount];
 
 Plant[] plants = new Plant[5];
+Timer timer;
 
 void setup() {
   
   size(500,500);  
-  frameRate(30);
+  //frameRate(30);
+  timer= new Timer(30);
   
-  
+
+   for (int i = 0; i < 5; i++) {
+    Plant plant = new Plant(50 + (i * 50),100);
+    plants[i] = plant;
+  }
 
 
 }
@@ -18,6 +24,13 @@ void setup() {
 void draw() {
  background(159,191,139);
  
+  for (Plant plant : plants) {
+      plant.display(cellMatrix);
+      if (timer.go()) {
+        plant.reproduce(plants,cellMatrix);
+      }
+      
+  }
   
   
  }
