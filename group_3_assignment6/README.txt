@@ -1,0 +1,1 @@
+Open the group_3_assignment6.pde file. Each of the classes will be opened in a separate tab within the Processing window. Click 'Run' to begin the simulation, which will run continuously until it is terminated.   
