@@ -46,7 +46,6 @@ class Prey {
       if (p.x_pos == this.x && p.y_pos == this.y) {
         p.alive = false;
         this.food++;
-        println(food);
       }
       
     }
@@ -55,8 +54,8 @@ class Prey {
   
   Prey[] reproduce(Prey[] preys) {
     
-    if (this.food == 3) {
-      print(preys);
+    if (this.food >= 3) {
+   
       preys = (Prey[])append(preys, new Prey(this.x, this.y));
       this.food = 0;
       return preys;
